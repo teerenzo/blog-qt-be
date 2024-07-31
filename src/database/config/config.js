@@ -1,0 +1,13 @@
+require("dotenv").config();
+
+module.exports = {
+  development: {
+    username: `postgres`,
+    password: `10NSN20ngu@`,
+    database: "todo",
+    host: "localhost",
+    dialect: "postgres",
+  },
+  test: {},
+  production: {},
+};
