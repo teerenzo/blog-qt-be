@@ -7,8 +7,9 @@ import {
 } from "../services/blogService.js";
 
 export const createPost = async (req, res) => {
-  const { title, content, userId } = req.body;
+  const { title, content } = req.body;
   try {
+    const userId = req.user.id;
     const newPost = await createPostService({ title, content, userId });
     res.status(201).json({
       message: "Post created successfully",
@@ -46,7 +47,8 @@ export const getPostById = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   const { id } = req.params;
-  const { title, content, userId } = req.body;
+  const { title, content } = req.body;
+  const userId = req.user.id;
   try {
     const updatedPost = await updatePostService(
       id,

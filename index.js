@@ -1,6 +1,8 @@
 import express from "express";
 import routes from "./src/routes/index.js";
 import dotenv from "dotenv";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger.js";
 import cors from "cors";
 import sequelize from "./src/config/db.js";
 import bodyParser from "body-parser";
@@ -14,6 +16,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use("/api-docs", swaggerDocument);
 
 app.use("/api/v1", routes);
 
