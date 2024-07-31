@@ -1,4 +1,7 @@
+import e from "express";
+
 const { Post } = require("../database/models");
+const { User, Comment } = require("../database/models");
 
 // Create a new blog post
 export const createPost = async (data) => {
@@ -17,7 +20,27 @@ export const createPost = async (data) => {
 // Fetch all blog posts
 export const getPosts = async () => {
   try {
-    const posts = await Post.findAll();
+    const posts = await Post.findAll({
+      include: [
+        {
+          model: User,
+          as: "author",
+          attributes: { exclude: ["password"] },
+        },
+        {
+          model: Comment,
+          as: "comments",
+          attributes: ["id", "content"],
+          include: [
+            {
+              model: User,
+              as: "author",
+              attributes: { exclude: ["password"] },
+            },
+          ],
+        },
+      ],
+    });
     if (!posts) {
       throw new Error("No posts found");
     }
