@@ -4,20 +4,37 @@
   "description": "this is the backend of blogApp",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon -L --exec babel-node index.js",
+    "build": "babel index.js -d dist",
+    "start": "npm run build && nodemon dist/index.js",
+    "migrate": "cd src/database && sequelize db:migrate"
   },
   "author": "teerenzo",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-async-handler": "^1.2.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.4",
     "pg": "^8.12.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.24.8",
+    "@babel/core": "^7.25.2",
+    "@babel/node": "^7.25.0",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-transform-runtime": "^7.19.6",
+    "@babel/preset-env": "^7.25.2",
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "babel-plugin-istanbul": "^6.1.1",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.4",
     "sequelize-cli": "^6.6.2"
   }
 }
