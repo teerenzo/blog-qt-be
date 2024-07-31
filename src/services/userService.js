@@ -17,7 +17,7 @@ export const login = async (data) => {
   try {
     const user = await User.findOne({ where: { email: data.email } });
     if (!user) {
-      throw new Error("User not found");
+      throw new Error("Wrong credentials");
     }
     return user;
   } catch (error) {
