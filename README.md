@@ -49,11 +49,13 @@ Check out the live demo [https://blog-qt-be.onrender.com/api-docs](#).
 
    ```bash
    npm run migrate  
+   npm run undo-migrate for deleting all migrations
 
 4. **Adding sample data in database:**
 
    ```bash
    npm run seed
+   npm run undo-seed for deleting all databa
 
 4. **Start applicatiion:**
 
