@@ -2,6 +2,11 @@ const { User } = require("../database/models");
 
 export const register = async (data) => {
   try {
+    // check if user already exists
+    const user = await User.findOne({ where: { email: data.email } });
+    if (user) {
+      throw new Error("User already exists");
+    }
     const newUser = await User.create(data);
     if (!newUser) {
       throw new Error("Something went wrong");
