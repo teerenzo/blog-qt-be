@@ -10,6 +10,8 @@ if (!databaseUrl) {
   throw new Error("DATABASE_URL environment variable is missing");
 }
 
-const sequelize = new Sequelize(databaseUrl);
+const sequelize = new Sequelize(databaseUrl, {
+  dialect: "postgres",
+});
 
 export default sequelize;
