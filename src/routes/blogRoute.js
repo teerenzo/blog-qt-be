@@ -19,8 +19,8 @@ const routes = express.Router();
 routes.post(
   "/",
   protect,
-  validateSchema(blogSchema),
   upload.array("files", 1),
+  validateSchema(blogSchema),
   createPost
 );
 
@@ -31,8 +31,8 @@ routes.get("/:id", getPostById);
 routes.put(
   "/:id",
   protect,
-  validateSchema(blogSchema),
   upload.array("files", 1),
+  validateSchema(blogSchema),
   updatePost
 );
 
