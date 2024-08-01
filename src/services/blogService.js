@@ -1,9 +1,9 @@
-import e from "express";
+
 
 const { Post } = require("../database/models");
 const { User, Comment } = require("../database/models");
 
-// Create a new blog post
+
 export const createPost = async (data) => {
   try {
     const newPost = await Post.create(data);
@@ -17,7 +17,7 @@ export const createPost = async (data) => {
   }
 };
 
-// Fetch all blog posts
+
 export const getPosts = async () => {
   try {
     const posts = await Post.findAll({
@@ -51,10 +51,30 @@ export const getPosts = async () => {
   }
 };
 
-// Fetch a single post by ID
+
 export const getPostById = async (postId) => {
   try {
-    const post = await Post.findByPk(postId);
+    const post = await Post.findByPk(postId, {
+      include: [
+        {
+          model: User,
+          as: "author",
+          attributes: { exclude: ["password"] },
+        },
+        {
+          model: Comment,
+          as: "comments",
+          attributes: ["id", "content"],
+          include: [
+            {
+              model: User,
+              as: "author",
+              attributes: { exclude: ["password"] },
+            },
+          ],
+        },
+      ],
+    });
     if (!post) {
       throw new Error("Post not found");
     }
@@ -65,7 +85,7 @@ export const getPostById = async (postId) => {
   }
 };
 
-// Update a blog post
+
 export const updatePost = async (postId, data, userId) => {
   try {
     const post = await Post.findOne({ where: { id: postId, userId } });
@@ -86,7 +106,7 @@ export const updatePost = async (postId, data, userId) => {
   }
 };
 
-// Delete a blog post
+
 export const deletePost = async (postId, userId) => {
   try {
     const post = await Post.findOne({ where: { id: postId, userId } });
@@ -97,6 +117,40 @@ export const deletePost = async (postId, userId) => {
       where: { id: postId },
     });
     return { message: "Post deleted successfully" };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const getPostsByUser = async (userId) => {
+  try {
+    const posts = await Post.findAll({
+      where: { userId },
+      include: [
+        {
+          model: User,
+          as: "author",
+          attributes: { exclude: ["password"] },
+        },
+        {
+          model: Comment,
+          as: "comments",
+          attributes: ["id", "content"],
+          include: [
+            {
+              model: User,
+              as: "author",
+              attributes: { exclude: ["password"] },
+            },
+          ],
+        },
+      ],
+    });
+    if (!posts) {
+      throw new Error("No posts found");
+    }
+    return posts;
   } catch (error) {
     console.log(error);
     throw error;
