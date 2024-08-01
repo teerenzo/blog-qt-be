@@ -7,15 +7,23 @@ import cors from "cors";
 import sequelize from "./src/config/db.js";
 import bodyParser from "body-parser";
 
+import env from "./src/utils/env.js";
+env;
+
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 
 app.use("/api-docs", swaggerDocument);
 
