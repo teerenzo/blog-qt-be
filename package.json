@@ -7,7 +7,9 @@
     "dev": "nodemon -L --exec babel-node index.js",
     "build": "babel index.js -d dist",
     "start": "npm run build && nodemon dist/index.js",
-    "migrate": "cd src/database && sequelize db:migrate"
+    "migrate": "cd src/database && sequelize db:migrate",
+    "seed": "cd src/database && sequelize db:seed:all"
+
   },
   "author": "teerenzo",
   "license": "ISC",

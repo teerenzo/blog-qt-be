@@ -7,6 +7,12 @@ module.exports = {
     database: "todo",
     host: "localhost",
     dialect: "postgres",
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   },
   test: {},
   production: {},
