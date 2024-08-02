@@ -1,17 +1,24 @@
 {
   "presets": [
-    ["@babel/preset-env", {
-      "targets": {
-        "node": "current"
-      }
-    }]
+    ["@babel/preset-env",
+    {
+        "targets": {
+          "node": "16"
+        }
+      }]
   ],
   "plugins": [
-    "add-module-exports",
-    ["@babel/plugin-transform-runtime", {
-      "regenerator": true
-    }],
-    "@babel/plugin-proposal-class-properties",
-    "transform-inline-environment-variables"
+    [
+      "add-module-exports"
+    ],
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-class-properties"
+    ]
   ]
 }

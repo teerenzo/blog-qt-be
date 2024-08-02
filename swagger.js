@@ -21,7 +21,7 @@ const swaggerDocument = {
   ],
   paths: {
     "/auth/register": {
-      blog: {
+      post: {
         tags: ["User"],
         description: "Register a new user",
         requestBody: {
@@ -29,7 +29,7 @@ const swaggerDocument = {
           content: {
             "application/json": {
               schema: {
-                $ref: "#/components/schemas/Register",
+                $ref: "#/components/schemas/User",
               },
             },
           },
@@ -73,7 +73,7 @@ const swaggerDocument = {
       },
     },
     "/auth/login": {
-      blog: {
+      post: {
         tags: ["User"],
         description: "Login a user",
         requestBody: {
@@ -134,7 +134,7 @@ const swaggerDocument = {
           },
         },
       },
-      blog: {
+      post: {
         tags: ["blog"],
         description: "Create a new blog",
         security: [
@@ -145,7 +145,7 @@ const swaggerDocument = {
         requestBody: {
           required: true,
           content: {
-            "application/json": {
+            "multipart/form-data": {
               schema: {
                 $ref: "#/components/schemas/blog",
               },
@@ -169,6 +169,7 @@ const swaggerDocument = {
       get: {
         tags: ["blog"],
         description: "Get a single blog by ID",
+
         parameters: [
           {
             name: "id",
@@ -194,6 +195,11 @@ const swaggerDocument = {
       put: {
         tags: ["blog"],
         description: "Update a blog by ID",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         parameters: [
           {
             name: "id",
@@ -232,6 +238,11 @@ const swaggerDocument = {
       delete: {
         tags: ["blog"],
         description: "Delete a blog by ID",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         parameters: [
           {
             name: "id",
@@ -255,35 +266,15 @@ const swaggerDocument = {
         },
       },
     },
-    "/blogs/{blogId}/comments": {
-      get: {
-        tags: ["Comment"],
-        description: "Get all comments for a blog",
-        parameters: [
+    "/blogs/{blogId}/comment": {
+      post: {
+        tags: ["blog"],
+        description: "Create a new comment for a blog",
+        security: [
           {
-            name: "blogId",
-            in: "path",
-            required: true,
-            schema: {
-              type: "integer",
-            },
+            bearerAuth: [],
           },
         ],
-        responses: {
-          200: {
-            description: "Successfully retrieved comments",
-          },
-          404: {
-            description: "blog not found",
-          },
-          401: {
-            description: "Unauthorized",
-          },
-        },
-      },
-      blog: {
-        tags: ["Comment"],
-        description: "Create a new comment for a blog",
         parameters: [
           {
             name: "blogId",
@@ -320,91 +311,10 @@ const swaggerDocument = {
         },
       },
     },
-    "/blogs/{blogId}/comments/{commentId}": {
-      put: {
-        tags: ["Comment"],
-        description: "Update a comment by ID",
-        parameters: [
-          {
-            name: "blogId",
-            in: "path",
-            required: true,
-            schema: {
-              type: "integer",
-            },
-          },
-          {
-            name: "commentId",
-            in: "path",
-            required: true,
-            schema: {
-              type: "integer",
-            },
-          },
-        ],
-        requestBody: {
-          required: true,
-          content: {
-            "application/json": {
-              schema: {
-                $ref: "#/components/schemas/Comment",
-              },
-            },
-          },
-        },
-        responses: {
-          200: {
-            description: "Comment updated successfully",
-          },
-          400: {
-            description: "Bad request",
-          },
-          404: {
-            description: "Comment not found",
-          },
-          401: {
-            description: "Unauthorized",
-          },
-        },
-      },
-      delete: {
-        tags: ["Comment"],
-        description: "Delete a comment by ID",
-        parameters: [
-          {
-            name: "blogId",
-            in: "path",
-            required: true,
-            schema: {
-              type: "integer",
-            },
-          },
-          {
-            name: "commentId",
-            in: "path",
-            required: true,
-            schema: {
-              type: "integer",
-            },
-          },
-        ],
-        responses: {
-          200: {
-            description: "Comment deleted successfully",
-          },
-          404: {
-            description: "Comment not found",
-          },
-          401: {
-            description: "Unauthorized",
-          },
-        },
-      },
-    },
   },
   components: {
     schemas: {
-      Register: {
+      User: {
         type: "object",
         properties: {
           firstName: {
@@ -453,12 +363,13 @@ const swaggerDocument = {
             type: "string",
             description: "Content of the blog",
           },
-          userId: {
-            type: "integer",
-            description: "ID of the user who created the blog",
+          files: {
+            type: "string",
+            description: "Image file for the blog",
+            format: "binary",
           },
         },
-        required: ["title", "content", "userId"],
+        required: ["title", "content"],
       },
       Comment: {
         type: "object",
@@ -466,14 +377,6 @@ const swaggerDocument = {
           content: {
             type: "string",
             description: "Content of the comment",
-          },
-          userId: {
-            type: "integer",
-            description: "ID of the user who created the comment",
-          },
-          blogId: {
-            type: "integer",
-            description: "ID of the blog the comment is associated with",
           },
         },
         required: ["content", "userId", "blogId"],
