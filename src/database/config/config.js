@@ -1,7 +1,7 @@
 const path = require("path");
 const Env = require("node-env-file");
 
-Env(path.join(__dirname, "../../../.env"));
+Env(path.join("./.env"));
 
 console.log("DB_HOST:", process.env.DB_HOST);
 
