@@ -3,17 +3,10 @@ const dotenv = require("dotenv");
 const fs = require("fs");
 
 const envPath = path.resolve("./.env");
-console.log("Loading environment variables from:", envPath);
 
 if (fs.existsSync(envPath)) {
-  console.log(".env file exists at", envPath);
   dotenv.config({ path: envPath });
-} else {
-  console.error(".env file does not exist at", envPath);
 }
-
-// Output an environment variable to confirm loading
-console.log("DB_HOST:", process.env.DB_HOST);
 
 module.exports = {
   development: {
