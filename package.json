@@ -31,9 +31,7 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.3",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
-  },
-  "devDependencies": {
+    "swagger-ui-express": "^5.0.1",
     "@babel/cli": "^7.24.8",
     "@babel/core": "^7.25.2",
     "@babel/node": "^7.25.0",
@@ -42,7 +40,9 @@
     "@babel/preset-env": "^7.25.2",
     "babel-plugin-add-module-exports": "^1.0.4",
     "babel-plugin-istanbul": "^6.1.1",
-    "babel-plugin-transform-inline-environment-variables": "^0.4.4",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.4"
+  },
+  "devDependencies": {
     "sequelize-cli": "^6.6.2"
   }
 }
