@@ -38,12 +38,18 @@ Check out the live demo [https://blog-qt-be.onrender.com/api-docs](#).
 3. **Add Backend .Env** (provided to be able to test)
 
    ```bash
-   JWT_SECRET=code
+   JWT_SECRET=
    PORT=4000
-   DATABASE_URL="postgresql://myBlog_owner:4Xr1QRYwieaz@ep-cool-surf-a50w7c16.us-east-2.aws.neon.tech/myBlog?sslmode=require"
-   CLOUDINARY_NAME=dnipqs2mh
-   CLOUDINARY_API_KEY=121464622239229
-   CLOUDINARY_API_SECRET=TxX4BUeXzeQVBohgb7n9rxrnro8  
+   DATABASE_URL=
+   DB_USERNAME=
+   DB_PASSWORD=
+   DB_DATABASE=
+   DB_HOST=
+   CLOUDINARY_NAME=
+   CLOUDINARY_API_KEY=
+   CLOUDINARY_API_SECRET=
+   SWAGGER_SERVER=
+   NODE_ENV="development"
 
 4. **Adding tables in database:**
 
